@@ -1,0 +1,89 @@
+/* src/components/HearingInfo.css */
+
+.hearing-info-page {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Section 1: Hero Banner */
+.hero-section {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 5%;
+    color: #fff;
+}
+
+.hero-content {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 40px;
+    border-radius: 12px;
+    max-width: 500px;
+}
+
+.hero-content h1 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.test-btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+    border: none;
+    background: linear-gradient(135deg, #42a5f5, #7e57c2);
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+}
+
+.test-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Section 2: Hearing Advice Component */
+.advice-section {
+    background-color: #f5f5f5;
+    padding: 60px 20px;
+}
+
+/* Section 3: Why Choose Us (now fullscreen image style like section 1) */
+.why-choose-section {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* 🔄 Align to right */
+    padding-right: 5%;
+    color: #fff;
+}
+
+.why-choose-content {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 40px;
+    border-radius: 12px;
+    max-width: 550px;
+    text-align: right;
+    /* 🔄 Text aligned right */
+}
+
+.why-choose-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.why-choose-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #fff;
+}

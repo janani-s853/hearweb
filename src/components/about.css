@@ -1,0 +1,112 @@
+
+
+.hero-video-content {
+  position: relative;
+  height: 60vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+  font-family: 'Poppins', sans-serif;
+}
+
+.hero-background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60vh;
+  object-fit: cover;
+  z-index: -2;
+  will-change: transform;
+  transition: transform 0.2s ease;
+}
+
+.hero-video-content::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0, 102, 204, 0.3), transparent 70%);
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.hero-left-gradient {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 0 2rem;
+}
+
+.hero-left-gradient h1 {
+  font-weight: 600;
+  font-size: 2.8rem;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.hero-left-gradient h3 {
+  font-size: 1.2rem;
+  color: #ffd700;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.hero-left-gradient p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #eaeaea;
+  max-width: 500px;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.hero-right {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .hero-left-gradient {
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .hero-left-gradient h1 {
+    font-size: 2rem;
+  }
+
+  .hero-left-gradient p {
+    font-size: 0.95rem;
+  }
+
+  .hero-right {
+    display: none;
+  }
+}
+
+.about-section {
+  position: relative;
+  background-size: cover;
+}
+
+/* Removed the white gradient from header area */
+.about-section::after {
+  content: '';
+  display: none;
+}
