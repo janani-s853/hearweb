@@ -1,39 +1,41 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Search, ShoppingCart, User } from 'lucide-react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './navbar.css';
+import './navbarres.css';
 
 const Navbar = () => {
   const [searchActive, setSearchActive] = useState(false);
-  const [dropdownVisible, setDropdownVisible] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
   const searchRef = useRef(null);
-  const dropdownRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isBlogsPage = location.pathname === '/blogs';
-  const isSupportPage = location.pathname === '/support';
+  const pathname = location.pathname;
 
-  const navbarClass = `navbar ${
-    isBlogsPage || isSupportPage
-      ? 'scrolled translucent'
-      : scrolled
-      ? 'scrolled solid'
-      : ''
-  }`;
+  // Pages that should always have black navbar
+  const alwaysBlackPages = ['/products', '/hearingtest', '/profile', '/blogs', '/support'];
 
-  // Detect scroll
+  // Detect scroll only for Home and About
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
+    if (!alwaysBlackPages.includes(pathname)) {
+      const handleScroll = () => setScrolled(window.scrollY > 10);
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, [pathname]);
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+  // Detect screen resize
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Collapse search when clicked outside
+  // Close search when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -44,35 +46,43 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Collapse dropdown when clicked outside
-  useEffect(() => {
-    const handleClickOutsideDropdown = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setDropdownVisible(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutsideDropdown);
-    return () => document.removeEventListener('mousedown', handleClickOutsideDropdown);
-  }, []);
+  const handleUserClick = () => navigate('/profile');
 
-  const handleUserClick = () => {
-    navigate('/profile');
-  };
+  // Navbar class logic
+  const navbarClass = `navbar ${
+    alwaysBlackPages.includes(pathname) || scrolled ? 'scrolled solid' : ''
+  }`;
 
   return (
     <nav className={navbarClass}>
       <div className="logo">H . E . A . R</div>
 
-      <ul className="nav-links">
-        <li><a href="/#">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/products">Products</a></li>
-        <li><a href="/blogs">Blogs</a></li>
-        <li><a href="/support">Support</a></li>
-        <li><a href="/hearingtest">Take a Hearing Test</a></li>
+      <ul className={`nav-links ${menuOpen ? 'show' : ''}`}>
+        <li><Link to="/">Home</Link></li>
+
+        {isMobile && (
+          <li>
+            <Link to="/profile">Profile</Link>
+          </li>
+        )}
+
+        <li><Link to="/about">About</Link></li>
+        <li><Link to="/products">Products</Link></li>
+        <li><Link to="/blogs">Blogs</Link></li>
+        <li><Link to="/support">Support</Link></li>
+        <li><Link to="/hearingtest">Take a Hearing Test</Link></li>
       </ul>
 
       <div className="nav-icons">
+        <div
+          className={`hamburger ${menuOpen ? 'active' : ''}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
         <div
           className={`search-container ${searchActive ? 'active' : ''}`}
           ref={searchRef}
@@ -83,33 +93,17 @@ const Navbar = () => {
             type="text"
             className="search-bar"
             placeholder="Search hearing aids"
+            autoFocus={searchActive}
           />
         </div>
 
         <ShoppingCart className="icon" />
 
-        <div
-          className="user-container"
-          onMouseEnter={() => setDropdownVisible(true)}
-          ref={dropdownRef}
-        >
-          <User className="custicon" onClick={handleUserClick} />
-          {dropdownVisible && (
-            <div
-              className="user-dropdown"
-              onMouseLeave={() => setDropdownVisible(false)}
-            >
-              <p className="dropdown-header">Welcome, Janani</p>
-              <ul>
-                <li><a href="/login">Signup / Login</a></li>
-                <li><a href="/profile">My Profile</a></li>
-                <li><a href="/wishlist">My Wishlist</a></li>
-                <li><a href="/orders">Track My Orders</a></li>
-                <li><a href="/logout">Logout</a></li>
-              </ul>
-            </div>
-          )}
-        </div>
+        {!isMobile && (
+          <div className="user-container">
+            <User className="custicon" onClick={handleUserClick} />
+          </div>
+        )}
       </div>
     </nav>
   );

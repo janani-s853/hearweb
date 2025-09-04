@@ -1,63 +1,114 @@
 import React from "react";
 import "./timeline.css";
-import { AlertCircle, Cpu, MapPin, Award, Footprints } from "lucide-react";
+import { User, BarChart, Settings, Shield, Award } from "lucide-react";
 
-const timelineData = [
-  {
-    icon: <Footprints size={28} color="#1b2e59" />,
-    title: "Humble Beginnings",
-    year: "2018",
-    description: "Started with a vision to help the hearing impaired.",
-  },
-  {
-    icon: <AlertCircle size={28} color="#1b2e59" />,
-    title: "Founding Vision",
-    year: "2019",
-    description: "The core team came together to launch H.E.A.R.",
-  },
-  {
-    icon: <Cpu size={28} color="#1b2e59" />,
-    title: "First Prototype",
-    year: "2020",
-    description: "Built and tested the first working model.",
-  },
-  {
-    icon: <MapPin size={28} color="#1b2e59" />,
-    title: "National Expansion",
-    year: "2021",
-    description: "Rolled out across India via online and retail.",
-  },
-  {
-    icon: <Award size={28} color="#1b2e59" />,
-    title: "Media & Awards",
-    year: "2022",
-    description: "Recognized nationally and trusted by users.",
-  },
+const steps = [
+  { id: "2023", title: "Humble Beginnings", desc: "Started with a vision to help the hearing impaired.", icon: <User size={28} />, color: "#e91e63" },
+  { id: "2023", title: "Founding Vision", desc: "The core team came together to launch H.E.A.R.", icon: <BarChart size={28} />, color: "#f39c12" },
+  { id: "2024", title: "First Prototype", desc: "Built and tested the first working model.", icon: <Settings size={28} />, color: "#27ae60" },
+  { id: "2025", title: "National Expansion", desc: "Rolled out across India via online and retail.", icon: <Shield size={28} />, color: "#3498db" },
+  { id: "2026", title: "Media & Awards", desc: "Recognized nationally and trusted by users.", icon: <Award size={28} />, color: "#6c5ce7" }
 ];
 
-const JourneyTimeline = () => {
+const svgWidth = 1200;
+const svgHeight = 200;
+const baseY = 100;
+
+function buildWaveSegments(len, width, y) {
+  const stepX = width / (len - 1);
+  const segments = [];
+  for (let i = 1; i < len; i++) {
+    const prevX = (i - 1) * stepX;
+    const x = i * stepX;
+    const cpX = prevX + stepX / 2;
+const curveHeight = 100; // tweak this number
+const cpY = i % 2 === 0 ? y - curveHeight : y + curveHeight;
+    segments.push(`M ${prevX} ${y} Q ${cpX} ${cpY}, ${x} ${y}`);
+  }
+  return segments;
+}
+
+export default function TimelineWithDottedLines() {
+  const segments = buildWaveSegments(steps.length, svgWidth, baseY);
+  const SEG_DUR = 0.8;
+  const SEG_GAP = 0.15;
+
   return (
-    <section className="journey-section">
-      <div className="journey-header">
-        <h2>Our Journey</h2>
-      </div>
-      <div className="timeline-graphic">
-        <div className="timeline-line" />
-        {timelineData.map((item, index) => (
-          <div className="timeline-block" key={index}>
-            <div className="timeline-connector">
-              <div className="timeline-icon">{item.icon}</div>
-            </div>
-            <div className="timeline-content">
-              <h4>{item.title}</h4>
-              <p>{item.description}</p>
-              <div className="timeline-year">{item.year}</div>
-            </div>
-          </div>
-        ))}
+    <section className="timeline-section">
+      <h2 className="timeline-heading">Our Journey</h2>
+      <div className="timeline-wrapper">
+        {/* Dotted line */}
+        <svg
+          className="timeline-svg"
+          viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          {segments.map((d, i) => (
+            <path
+              key={i}
+              d={d}
+              className="dotted-path"
+              style={{
+                "--delay": `${i * (SEG_DUR + SEG_GAP)}s`,
+                "--dur": `${SEG_DUR}s`,
+              }}
+            />
+          ))}
+        </svg>
+
+        {/* Circles & text */}
+        <div className="timeline-container">
+          {steps.map((s, i) => {
+            const baseDelay = i * (SEG_DUR + SEG_GAP) + SEG_DUR;
+            return (
+              <div className="timeline-item" key={s.id}>
+                {i % 2 === 0 && (
+                  <div
+                    className="timeline-text top"
+                    style={{ animationDelay: `${baseDelay + 0.35}s` }}
+                  >
+                    <h3>{s.title}</h3>
+                    <p>{s.desc}</p>
+                    <span className="timeline-num" style={{ color: s.color }}>
+                      {s.id}
+                    </span>
+                  </div>
+                )}
+                <div
+                  className="timeline-circle"
+                  style={{
+                    borderColor: s.color,
+                    animationDelay: `${baseDelay + 0.1}s`,
+                  }}
+                >
+                  <div
+                    className="timeline-icon"
+                    style={{
+                      color: s.color,
+                      animationDelay: `${baseDelay + 0.2}s`,
+                    }}
+                  >
+                    {s.icon}
+                  </div>
+                </div>
+                {i % 2 !== 0 && (
+                  <div
+                    className="timeline-text bottom"
+                    style={{ animationDelay: `${baseDelay + 0.35}s` }}
+                  >
+                    <h3>{s.title}</h3>
+                    <p>{s.desc}</p>
+                    <span className="timeline-num" style={{ color: s.color }}>
+                      {s.id}
+                    </span>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
-};
-
-export default JourneyTimeline;
+}

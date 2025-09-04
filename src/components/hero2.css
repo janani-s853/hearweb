@@ -3,11 +3,28 @@ body {
   background-color: white !important;
 }
 
-/* White section wrapper to override any global gradients */
 .top-picks-wrapper {
-  background-color: white;
-  padding: 70px 10px;
+  background-color: rgb(255, 255, 255);
+  padding: 50px 10px; /* reduced from 70px to move the section up */
   z-index: 2;
+  margin-top: -6.5rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px; /* reduced a bit to make gap smaller */
+}
+
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  z-index: 1
 }
 
 /* Centered container */
@@ -17,22 +34,8 @@ body {
   margin: 0 auto;
 }
 
-/* Section title and underline */
-.section-title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  text-align: center;
-  color: #333;
-  margin-bottom: 0.5rem;
-}
 
-.red-underline {
-  width: 60px;
-  height: 4px;
-  background-color: #ff3b3b;
-  margin: 0 auto 30px auto;
-  border-radius: 2px;
-}
+
 
 .carousel-wrapper {
   position: relative;
@@ -46,23 +49,25 @@ body {
 
 .product-slider {
   display: flex;
-  gap: 30px;
+  gap: 40px;
   transition: all 0.5s ease-in-out;
   flex-wrap: nowrap;
 }
 
 .product-card {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   border-radius: 16px;
   padding: 20px;
-  width: 300px;
-  min-height: 420px;
+  width: 250px; /* reduced from 300px to 240px */
+  min-height: 120px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   text-align: center;
   transition: transform 0.3s ease;
   border: 1px solid #eee;
   flex-shrink: 0;
+  margin-top: 50px;
 }
+
 
 .product-card:hover {
   transform: translateY(-6px);

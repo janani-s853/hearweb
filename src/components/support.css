@@ -1,263 +1,295 @@
-.support-wrapper {
-  display: flex;
-  min-height: 100vh;
+.support-page-wrapper {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f7fdfd;
+  background-color: #ffffff;
 }
 
 .hero-bg {
-  background-image: url('./assets/products/bg1.png'); /* Use any suitable image from assets */
+  background-image: url('./assets/products/bg9.png');
   background-size: cover;
   background-position: center;
-  border-radius: 20px;
-  padding: 2rem 0;
-  margin-top: 70px; /* Add space below navbar */
-}
-
-.support-content {
-  flex-grow: 1;
-  padding: 2rem;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 400px;
+  padding: 4rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  box-sizing: border-box;
 }
 
 .support-header {
   text-align: center;
-  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
 }
 
 .support-header h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: #013169;
+  margin-bottom: 1rem;
 }
 
 .search-input {
-  width: 60%;
-  padding: 0.8rem;
-  border-radius: 15px;
-  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 450px;
+  padding: 1rem;
+  border-radius: 30px;
+  border: 1px solid #ddd;
   font-size: 1rem;
   margin-top: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* ===================================
+   MAIN CONTENT & CARDS SECTION
+====================================== */
+.support-main-content {
+  background-color: #f8f9fa;
+  padding: 4rem 2rem;
 }
 
 .top-card-row {
+  max-width: 1500px;
+  margin: 0 auto 4rem auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(6, 1fr);
   gap: 1.5rem;
-  justify-content: center;
-  margin-bottom: 3rem;
+  align-items: stretch;
+}
+
+.support-card-link {
+  text-decoration: none;
+  color: inherit;
 }
 
 .support-card {
   background: #ffffff;
-  padding: 1.5rem;
-  border-radius: 20px;
+  padding: 0.8rem;
+  border-radius: 16px;
   text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
-  position: relative;
-  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 90%;
 }
 
 .support-card:hover {
-  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Blinking light/spotlight effect on hover */
-.support-card::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, rgba(0,255,255,0.25) 0%, rgba(0,255,255,0.10) 60%, transparent 90%);
-  transform: translate(-50%, -50%) scale(0.7);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 1;
-  transition: opacity 0.2s;
-}
-
-.support-card:hover::before {
-  opacity: 1;
-  animation: blink-spotlight 1.2s infinite alternate;
-}
-
-@keyframes blink-spotlight {
-  0% { opacity: 0.7; transform: translate(-50%, -50%) scale(0.7); }
-  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-  100% { opacity: 0.7; transform: translate(-50%, -50%) scale(0.7); }
+.support-card.inactive {
+  cursor: default;
 }
 
 .icon-circle {
-  background: #d2f4f1;
+  background: #e0f2fe;
   width: 60px;
   height: 60px;
+  min-height: 60px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1rem;
+  margin: 0 auto 1.5rem;
   font-size: 24px;
-  color: #004680;
+  color: #0c5b9e;
+  transition: all 0.3s ease;
 }
 
-/* Divider between cards and feedback section */
+.support-card:hover .icon-circle {
+  background: #0c5b9e;
+  color: #fff;
+  transform: translateY(-10px) scale(1.1);
+  box-shadow: 0 10px 20px rgba(12, 91, 158, 0.3);
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #1e293b;
+}
+
+.card-desc {
+  font-size: 0.95rem;
+  color: #64748b;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+/* ===================================
+   FEEDBACK & FAQ SECTIONS
+====================================== */
+
 .hearing-feedback-section {
   display: flex;
-  gap: 0;
-  margin: 4rem 0;
-  border-top: 2px solid #e0e0e0;
-  padding-top: 3rem;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  /* Match the background */
 }
 
 .hearing-image-section,
 .feedback-form-section {
   flex: 1;
-  height: 100%;
-}
-
-/* Left Side - Image */
-.hearing-image-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-right: 1rem;
+  min-width: 50%;
 }
 
 .hearing-image-section img {
   width: 100%;
   height: 100%;
-  max-height: 400px;
+  max-height: 500px;
   object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  display: block;
 }
 
-/* Right Side - Form */
 .feedback-form-section {
   background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  margin-left: 1rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 4rem;
+  box-sizing: border-box;
 }
 
 .feedback-form-section h3 {
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-  color: #11378f;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  color: #1e293b;
+  font-weight: 600;
 }
 
 .feedback-form-section input,
 .feedback-form-section textarea {
   width: 100%;
-  padding: 0.8rem;
+  padding: 1rem;
   margin-bottom: 1rem;
-  border-radius: 10px;
-  border: 1px solid #ccc;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
   font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.feedback-form-section input:focus,
+.feedback-form-section textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
 }
 
 .feedback-form-section button {
-  background-color: #0f419e;
+  background-color: #2563eb;
   color: white;
-  padding: 0.8rem;
+  padding: 1rem;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   width: 100%;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 1rem;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
 }
 
 .feedback-form-section button:hover {
-  background-color: #194a75;
+  background-color: #1d4ed8;
+  transform: translateY(-2px);
 }
 
-/* FAQ Section */
 .faq-section {
-  margin-top: 3rem;
+  padding: 4rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .faq-section h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: #11378f;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #1e293b;
   text-align: center;
+  font-weight: 600;
 }
 
 .faq-item {
   background: #ffffff;
-  padding: 1rem;
+  padding: 1.5rem;
   margin-bottom: 1rem;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  transition: box-shadow 0.3s;
+}
+
+.faq-item:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
 .faq-question {
-  font-weight: bold;
+  font-weight: 600;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1rem;
-  color: #22629b;
+  font-size: 1.1rem;
+  color: #1e293b;
 }
 
 .faq-answer {
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   font-size: 0.95rem;
-  color: #333;
+  color: #475569;
+  line-height: 1.7;
 }
 
 .faq-toggle-icon {
-  font-size: 1.2rem;
-  color: #22629b;
-}
-
-.support-navbar {
-  width: 250px;
-  background-color: #000;
-  padding: 2rem 1rem;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
-}
-
-.support-navbar h2,
-.support-navbar p,
-.support-navbar ul,
-.support-navbar li {
-  color: #fff;
-}
-
-.support-navbar h2 {
   font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.support-navbar p {
-  font-size: 0.9rem;
-  margin-bottom: 1.5rem;
-  color: #ccc;
-}
-
-.support-navbar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.support-navbar li {
-  margin-bottom: 1rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border-radius: 10px;
-  transition: background-color 0.2s, color 0.2s;
-  color: #fff;
-}
-
-.support-navbar li:hover,
-.support-navbar li.active {
-  background-color: #222;
+  color: #2563eb;
   font-weight: bold;
-  color: #fff;
 }
+
+/* ===================================
+   RESPONSIVE STYLES
+====================================== */
+@media (max-width: 1200px) {
+  .top-card-row {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 992px) {
+  .hearing-feedback-section {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-bg {
+    min-height: 300px;
+    padding: 4rem 1rem;
+  }
+
+  .hero-bg h1 {
+    font-size: 1.8rem;
+  }
+
+  .top-card-row {
+    grid-template-columns: 1fr;
+  }
+
+  .support-main-content {
+    padding: 4rem 1rem;
+  }
+
+  .hearing-feedback-section {
+    flex-direction: column;
+  }
+
+  .feedback-form-section {
+    padding: 2rem;
+  }
+}
+

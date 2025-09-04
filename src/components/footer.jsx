@@ -1,58 +1,84 @@
-import React from 'react';
-import './footer.css';
-import { MessageCircle, Facebook, Instagram, Twitter } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import "./footer.css";
+import logo from "./assets/fonts/logo_white.png";
+import { FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="custom-footer">
+    <footer className="footer">
+      {/* Floating gradient circles */}
+      <div className="circle circle1"></div>
+      <div className="circle circle2"></div>
+      <div className="circle circle3"></div>
+      <div className="circle circle4"></div>
+      <div className="circle circle5"></div>
+      <div className="circle circle6"></div>
+
       <div className="footer-container">
-        <div className="footer-column brand">
-          <h2 className="footer-brand">H . E . A . R</h2>
-          <p>Your trusted partner in hearing wellness. Based in Chennai, we offer high-quality hearing aids and expert consultation services.</p>
-          <div className="social-icons">
-            <a href="#"><Facebook size={20} /></a>
-            <a href="#"><Instagram size={20} /></a>
-            <a href="#"><Twitter size={20} /></a>
+        {/* Column 1 - Logo + Tagline */}
+        <div className="footer-col footer-logo-col">
+          <img src={logo} alt="H.E.A.R Logo" className="footer-logo-img" />
+          <p className="footer-tagline">
+            Enhancing lives with innovative hearing solutions.
+          </p>
+        </div>
+
+        {/* Column 2 - Quick Links */}
+        <div className="footer-col">
+          <h3 className="footer-heading">Quick Links</h3>
+          <div className="footer-links">
+            <a href="/">Home</a>
+            <a href="/about">About Us</a>
+            <a href="/products">Products</a>
+            <a href="/blogs">Blogs</a>
+            <a href="/hearingtest">Take a Hearing Test</a>
+            <a href="#">Book a Consultation</a>
           </div>
         </div>
 
-        <div className="footer-column links">
-          <h3>Explore</h3>
-          <ul>
-            <li><a href="/products">Hearing Aids</a></li>
-            <li><a href="/consultation">Book Consultation</a></li>
-            <li><a href="/support">Support</a></li>
-            <li><a href="/about">About Us</a></li>
-          </ul>
+        {/* Column 3 - Contact */}
+        <div className="footer-col">
+          <h3 className="footer-heading">Contact</h3>
+          <p>
+            Email:{" "}<a href="mailto:hearcompany25@gmail.com">hearcompany25@gmail.com</a>
+          </p>
+          <p>
+            Phone: <a href="tel:+918148662839">+91 8148662839</a>
+          </p>
+          <p>
+            Saraswathi Nagar, 7th street,<br />
+            Adambakkam, Chennai-88, India
+          </p>
         </div>
 
-        <div className="footer-column contact">
-          <h3>Contact</h3>
-          <p>Email: hearcompany25@gmail.com</p>
-          <p>Phone: +91 8148662839</p>
-          <p>Saraswathi Nagar, 7th street, Adambakkam, Chennai-88, India</p>
-        </div>
-
-        <div className="footer-column newsletter">
-          <h3>Stay Updated</h3>
-          <p>Subscribe for offers and updates.</p>
-          <form>
+        {/* Column 4 - Newsletter + Socials */}
+        <div className="footer-col">
+          <h3 className="footer-heading">Stay Connected</h3>
+          <p className="newsletter-text">
+            Subscribe for updates and hearing care tips.
+          </p>
+          <form className="newsletter-form">
             <input type="email" placeholder="Enter your email" required />
             <button type="submit">Subscribe</button>
           </form>
+          <div className="footer-socials">
+            <a href="#"><FaLinkedin /></a>
+            <a href="#"><FaTwitter /></a>
+            <a href="#"><FaInstagram /></a>
+          </div>
+        </div>
+
+        {/* Column 5 - Help Section */}
+        <div className="footer-col">
+          <h3 className="footer-heading">Let Us Help You</h3>
+          <div className="footer-links">
+            <a href="/profile">My Account</a>
+            <a href="/support">Support</a>
+          </div>
         </div>
       </div>
 
-      <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} H.E.A.R. All rights reserved.</p>
-      </div>
-
-<Link to="/consultation" className="floating-button">
-  <MessageCircle size={20} />
-  <span>Consult Now</span>
-</Link>
-
+      <p className="footer-bottom">© 2025 H.E.A.R. All Rights Reserved.</p>
     </footer>
   );
 };

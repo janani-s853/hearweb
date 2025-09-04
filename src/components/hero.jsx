@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./hero.css";
+import "./herores.css";   // responsive overrides
 import Hero2 from "../components/hero2";
 import Footer from "../components/footer";
 import { ChevronRight } from "lucide-react";
@@ -23,22 +24,29 @@ const Hero = () => {
     beforeChange: (_, next) => setCurrentSlide(next),
   };
 
-  useEffect(() => {
-    const body = document.body;
-    const backgrounds = [
-      "linear-gradient(to bottom, #bbb4e4, #f2daf6, #d9f3fa, #ffffff,#ffffff)", // Purple-pink
-      "linear-gradient(to bottom, #000000, #4e4e4e, #9f9f9f, #ffffff,#ffffff)", // Black/gray
-      "linear-gradient(to bottom, #5a7a3d, #79ab3c, #b8e482, #ffffff,#ffffff)", // Green
-      "linear-gradient(to bottom, #a6d8dc, #bce9ec, #ccf6f3, #ffffff,#ffffff)", // Teal
-      "linear-gradient(to bottom right, #7b9cd0, #c2e9fb, #e0f7fa, #ffffff,#ffffff)", // Blue fade
-      "linear-gradient(to bottom, #6083ad, #b2cae2, #d1e1f0, #ffffff,#ffffff)", // Soft Blue
-    ];
+useEffect(() => {
+  const body = document.body;
+  const backgrounds = [
+    "linear-gradient(to bottom, #8e84c6ff, #f2daf6, #d9f3fa, #ffffff,#ffffff)", // Purple-pink
+    "linear-gradient(to bottom, #000000, #4e4e4e, #9f9f9f, #ffffff,#ffffff)", // Black/gray
+    "linear-gradient(to bottom, #5a7a3d, #79ab3c, #b8e482, #ffffff,#ffffff)", // Green
+    "linear-gradient(to bottom, #74bdc3ff, #bce9ec, #ccf6f3, #ffffff,#ffffff)", // Teal
+    "linear-gradient(to bottom , #577cb9ff, #71acc8ff, #acf5feff, #ffffff,#ffffff)", // Blue fade
+    "linear-gradient(to bottom, #6083ad, #a1bfdcff, #b3daffff, #ffffff,#ffffff)", // Soft Blue
+  ];
 
+  // ✅ Only run background transitions on desktop (>= 769px)
+  if (window.innerWidth > 768) {
     requestAnimationFrame(() => {
       body.style.transition = "background 0.8s ease-in-out";
       body.style.background = backgrounds[currentSlide];
     });
-  }, [currentSlide]);
+  } else {
+    // ✅ Mobile: lock to one static background
+    body.style.background =
+      "linear-gradient(to bottom, #ffffffff, #ffffffff, #fcfcfcff, #ffffff)";
+  }
+}, [currentSlide]);
 
   return (
     <>

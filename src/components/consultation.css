@@ -44,7 +44,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(245, 245, 245);
+  background-color: #5594db;
   height: 100vh;
   box-sizing: border-box;
   padding: 2rem;
@@ -56,7 +56,7 @@
   max-width: 420px;
   min-height: 520px;
   padding: 2.5rem 2rem;
-  background-color: #f5f4f7;
+  background-color: #5594db;
   border-radius: 16px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   animation: fadeInUp 0.6s ease-out;
@@ -106,12 +106,12 @@
 .input-group select {
   width: 100%;
   padding: 0.8rem;
-  border: 1px solid #c0bebe;
+  border: 1px solid #5594db;
   border-radius: 6px;
   box-sizing: border-box;
   font-size: 1rem;
   transition: border-color 0.3s ease;
-  background: #fafafb;
+  background: #5594db;
 }
 
 .input-group input:focus,
@@ -124,7 +124,7 @@
   width: 100%;
   padding: 1rem;
   background-color: #6585b5;
-  color: white;
+  color: #5594db;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -143,7 +143,7 @@
 @media (prefers-color-scheme: dark) {
   .query-card {
     background-color: #18192a;
-    color: #f3f3fa;
+    color: #5594db;
   }
   .query-card::before {
     background: radial-gradient(ellipse at 60% 100%, #B296FF 0%, #C1D2DC 100%);
@@ -177,9 +177,81 @@
 }
 
 .navbar-override-black .nav-links li a {
-  color: #fff !important;
+  color:#5594db !important;
 }
 
 .navbar-override-black .logo {
-  color: #fff !important;
+  color: #576299 !important;
 } 
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  .query-card {
+    max-width: 90vw;   /* take most of the screen width */
+    min-height: 360px; /* smaller height on mobile */
+    padding: 1.5rem 1rem;
+  }
+
+  .query-card h2 {
+    font-size: 1.4rem; /* smaller heading */
+    margin-bottom: 1rem;
+  }
+
+  .input-group input,
+  .input-group select {
+    padding: 0.6rem;   /* slightly smaller input fields */
+    font-size: 0.9rem;
+  }
+
+  .login-button {
+    padding: 0.6rem 0.8rem; /* compact button */
+    font-size: 0.85rem;     /* smaller text */
+    border-radius: 4px;     /* slightly less rounded */
+  }
+}
+.floating-button {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  background-color: #1e3a8a; /* dark blue */
+  color: #5594db;              /* white text for contrast */
+  padding: 10px 16px;       /* smaller padding to reduce width */
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.85rem;       /* slightly smaller font */
+  display: flex;
+  align-items: center;
+  gap: 6px;                 /* smaller gap between icon and text */
+  text-decoration: none;
+  transition: all 0.3s ease;
+  z-index: 999;
+  animation: float 2s infinite ease-in-out;
+}
+
+.floating-button:hover {
+  background-color: #15306d; /* even darker on hover */
+  transform: scale(1.05);
+}
+.floating-button {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  background-color: #007BFF; /* changed to blue */
+  color: #0056b3;            /* white text for contrast */
+  padding: 10px 16px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  z-index: 999;
+  animation: float 2s infinite ease-in-out;
+}
+
+.floating-button:hover {
+  background-color: #0056b3; /* darker blue on hover */
+  transform: scale(1.05);
+}
+

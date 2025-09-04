@@ -13,15 +13,9 @@
 
 html,
 body {
-  height: 115%;
-  margin: 0;
-  padding: 0;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  transition: background 0.8s ease-in-out;
-}
+  height: 100%;
 
+}
 
 .hero-container::before {
   content: "";
@@ -247,7 +241,6 @@ body {
 }
 
 
-
 /* ✅ Custom Styled Slick Dots - Rectangle Boxes */
 .slick-dots {
   position: absolute;
@@ -291,7 +284,6 @@ body {
 }
 
 
-
 /* ✅ Hide Arrows */
 .slick-prev,
 .slick-next {
@@ -302,4 +294,5 @@ body {
 .slick-slide {
   transition: transform 0.8s ease-in-out !important;
 }
+
 

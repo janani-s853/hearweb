@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./blogs.css";
-import Footer from './footer';
+import Footer from '../components/footer';
+import BlogCarousel from './blogscarousel';
+import { ChevronDown } from "lucide-react";
 
 const initialBlogs = [
   {
@@ -9,6 +11,9 @@ const initialBlogs = [
     content: "A roundup of the latest and most effective hearing aids this year.",
     image: require("./assets/blog1.jpg"),
     category: "Technology",
+    author: "Dr. Sarah Chen",
+    publishDate: "January 15, 2025",
+    readTime: "5 min read",
     fullContent: {
       title: "Top Hearing Aids in 2025",
       sections: [
@@ -58,6 +63,9 @@ const initialBlogs = [
     content: "What to consider when selecting your first hearing device.",
     image: require("./assets/blog2.avif"),
     category: "Advice",
+    author: "Michael Rodriguez",
+    publishDate: "December 8, 2024",
+    readTime: "7 min read",
     fullContent: {
       title: "Choosing the Right Hearing Aid",
       sections: [
@@ -94,12 +102,15 @@ const initialBlogs = [
   },
   {
     id: "blog3",
-    title: "How AI is Revolutionizing Hearing",
+    title: "Revolutionizing Hearing",
     content: "Artificial intelligence and sound processing innovations.",
     image: require("./assets/blog3.jpeg"),
     category: "Technology",
+    author: "Dr. Emily Watson",
+    publishDate: "November 22, 2024",
+    readTime: "6 min read",
     fullContent: {
-      title: "How AI is Revolutionizing Hearing",
+      title: "Revolutionizing Hearing",
       sections: [
         {
           heading: "Introduction",
@@ -128,8 +139,11 @@ const initialBlogs = [
     id: "blog4",
     title: "Success Story: Sarah's Journey",
     content: "How a hearing aid gave back her confidence.",
-    image: require("./assets/blog3.jpeg"),
+    image: require("./assets/blog4.jpg"),
     category: "Stories",
+    author: "Sarah Thompson",
+    publishDate: "October 15, 2024",
+    readTime: "8 min read",
     fullContent: {
       title: "Success Story: Sarah's Journey",
       sections: [
@@ -168,8 +182,11 @@ const initialBlogs = [
     id: "blog5",
     title: "Overcoming Hearing Stigma",
     content: "Changing perceptions about hearing loss.",
-    image: require("./assets/blog3.jpeg"),
+    image: require("./assets/blog5.jpg"),
     category: "Advice",
+    author: "Dr. James Wilson",
+    publishDate: "September 30, 2024",
+    readTime: "5 min read",
     fullContent: {
       title: "Overcoming Hearing Stigma",
       sections: [
@@ -200,48 +217,53 @@ const initialBlogs = [
       ]
     }
   },
+  {
+        id: "blog6",
+    title: "Overcoming Hearing Stigma",
+    content: "Changing perceptions about hearing loss.",
+    image: require("./assets/blog6.webp"),
+    category: "Stories",
+    author: "Dr. James Wilson",
+    publishDate: "September 30, 2024",
+    readTime: "5 min read",
+    fullContent: {
+      title: "Overcoming Hearing Stigma",
+      sections: [
+        {
+          heading: "Introduction",
+          content: "The perception of hearing aids has undergone a remarkable transformation in recent years. Once viewed as cumbersome devices associated exclusively with aging, today's hearing technology is increasingly celebrated as innovative wearable tech that enhances life quality for people of all ages. This shift represents a broader cultural movement away from stigmatizing hearing loss toward embracing hearing health as an essential component of overall wellness. As technology advances and awareness grows, the outdated stereotypes surrounding hearing aids are rapidly disappearing."
+        },
+        {
+          heading: "💼 Tech for All Ages",
+          content: "One of the most significant changes in hearing technology adoption is the expanding demographic of users. No longer exclusively associated with older adults, hearing enhancement devices are increasingly popular among millennials and Gen Z professionals seeking to optimize their sensory experiences. Many younger adults are proactively addressing mild hearing challenges or using specialized hearing technology to enhance focus in noisy work environments, filter unwanted sounds, or boost productivity. This shift mirrors the wellness tech movement, where hearing devices are viewed alongside fitness trackers and smart glasses as tools for optimizing human performance rather than merely compensating for impairment."
+        },
+        {
+          heading: "🎧 Designer Devices",
+          content: "Modern hearing aids bear little resemblance to the bulky, beige devices of decades past. Today's hearing technology is sleek, minimalist, and often indistinguishable from popular wireless earbuds. Leading manufacturers now offer devices in various colors, metallic finishes, and even collaborations with fashion designers to create hearing aids that function as stylish accessories. Many users can control their hearing aids through smartphone apps, adjusting settings for different environments with a discreet tap on their phone. The miniaturization of components has resulted in devices so tiny they sit completely within the ear canal, invisible to others, while delivering exceptional sound quality and smart features that rival premium consumer audio products."
+        },
+        {
+          heading: "🌍 Awareness Movements",
+          content: "Social media has played a pivotal role in normalizing conversations about hearing health. Influencers and celebrities are increasingly open about their hearing experiences, sharing their journeys with millions of followers. Hashtags like #HearingHealthAwareness and #BreakTheStigma have created communities where people celebrate their hearing technology rather than concealing it. Public awareness campaigns featuring respected athletes, musicians, and actors who use hearing aids have helped reframe the narrative around hearing loss. These movements emphasize that addressing hearing needs is a sign of self-awareness and proactive health management—similar to wearing glasses for vision correction or using fitness technology to monitor physical health."
+        },
+        {
+          heading: "🧠 Mental Wellness Connection",
+          content: "Research has established clear links between untreated hearing loss and mental health challenges, including increased risk of social isolation, anxiety, depression, and cognitive decline. As mental health awareness grows, more people recognize the importance of addressing hearing concerns as part of their overall wellness strategy. Hearing healthcare professionals now often collaborate with mental health providers to address the psychological aspects of hearing loss and adaptation to hearing technology. Users frequently report significant improvements in mental well-being after addressing hearing loss, including reduced stress in social situations, improved relationships, and renewed confidence in professional settings. This growing understanding of the hearing-brain connection has helped reframe hearing aids as essential tools for maintaining cognitive health and emotional well-being."
+        },
+        {
+          heading: "🎙️ Celebration Message",
+          content: "The most powerful force breaking down hearing stigma is the growing community of confident hearing aid users who openly celebrate their technology. Rather than viewing hearing aids as something to hide, many users now approach them with the same attitude as they would stylish eyeglasses or the latest smartphone—as modern tools that enhance daily life and reflect personal style. Hearing aids are increasingly recognized as sophisticated wearable technology that represents taking control of one's health and embracing innovation. The message emerging from hearing health advocates is clear: using hearing technology isn't about admitting defeat—it's about making a bold, empowered choice to live life to its fullest potential with all senses engaged."
+        }
+      ]
+    }
+  },
+  
 ];
 
-const reactionsList = ["👍", "❤️", "😂", "😮"];
-
 const BlogPage = () => {
+    const [likedBlogs, setLikedBlogs] = useState({}); // <- add this
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
-  const [likes, setLikes] = useState({});
-  const [reactions, setReactions] = useState({});
-  const [toast, setToast] = useState("");
   const [selectedBlog, setSelectedBlog] = useState(null);
-
-  // Load from localStorage
-  useEffect(() => {
-    const storedLikes = JSON.parse(localStorage.getItem("likes")) || {};
-    const storedReactions = JSON.parse(localStorage.getItem("reactions")) || {};
-    setLikes(storedLikes);
-    setReactions(storedReactions);
-  }, []);
-
-  // Save to localStorage
-  useEffect(() => {
-    localStorage.setItem("likes", JSON.stringify(likes));
-    localStorage.setItem("reactions", JSON.stringify(reactions));
-  }, [likes, reactions]);
-
-  const handleLike = (id) => {
-    setLikes((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
-    showToast("You liked this blog!");
-  };
-
-  const handleReaction = (id, emoji) => {
-    const newReactions = { ...(reactions[id] || {}) };
-    newReactions[emoji] = (newReactions[emoji] || 0) + 1;
-    setReactions((prev) => ({ ...prev, [id]: newReactions }));
-    showToast(`You reacted with ${emoji}`);
-  };
-
-  const showToast = (msg) => {
-    setToast(msg);
-    setTimeout(() => setToast(""), 2000);
-  };
 
   const handleReadMore = (blog) => {
     setSelectedBlog(blog);
@@ -249,6 +271,13 @@ const BlogPage = () => {
 
   const handleBackToBlogs = () => {
     setSelectedBlog(null);
+  };
+
+  const handleLike = (blogId) => {
+    setLikedBlogs(prev => ({
+      ...prev,
+      [blogId]: !prev[blogId]
+    }));
   };
 
   const filtered = initialBlogs.filter(
@@ -263,7 +292,7 @@ const BlogPage = () => {
     return (
       <div className="blog-container">
         <div className="article-detail">
-          <button className="back-btn" onClick={handleBackToBlogs}>
+          <button className="common-btn" onClick={handleBackToBlogs}>
             ← Back to Blogs
           </button>
 
@@ -313,9 +342,8 @@ const BlogPage = () => {
               </div>
             </div>
           </div>
+          <Footer isArticlePage={true} />
         </div>
-
-        {toast && <div className="toast">{toast}</div>}
       </div>
     );
   }
@@ -325,110 +353,65 @@ const BlogPage = () => {
 
     <div className="blog-container">
       {/* Main Heading */}
-      <h1 className="main-heading">Hearing Aid Blog</h1>
+      <h1 className="main-heading">Trending Blogs</h1>
 
-      {/* Search and Filter Controls */}
-      <div className="top-controls">
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Search blogs..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <select className="filter-dropdown" value={category} onChange={(e) => setCategory(e.target.value)}>
-          {categories.map((c, i) => (
-            <option key={i} value={c}>
-              {c}
-            </option>
-          ))}
-        </select>
-      </div>
+      {/* Featured Articles Carousel */}
+      <BlogCarousel />
 
-      {/* Featured Article Section */}
-      <div className="featured-section">
-        <div className="featured-content">
-          <h2 className="featured-heading">FEATURED ARTICLE</h2>
-          <p className="featured-text">
-            Lorem ipsum dolor amet, consectetur adipiscing elit. 
-            Torquent taciti ridiculus efficitur magna luctus metus. 
-            Egestas elementum lacus posuere nec, placerat euismod 
-            orci nam. Taciti etiam lectus ac porttitor phasellus netus 
-            mattis sit. Accumsan ligula phasellus curabitur porttitor ante 
-            posuere. Vivamus lacinia fames euismod porttitor quis.
-          </p>
-          <button className="read-now-btn" onClick={() => handleReadMore(initialBlogs[0])}>
-            READ NOW
-          </button>
-        </div>
-        <div className="featured-image">
-          <img 
-            src={initialBlogs[0].image}
-            alt={initialBlogs[0].title}
-          />
-        </div>
-      </div>
+{/* Search and Filter Controls */}
+<div className="top-controls">
+  {/* Search Input */}
+  <input
+    type="text"
+    className="search-input"
+    placeholder="Search blogs..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
 
-      {/* Category Filter Bar */}
-      <div className="category-filter-bar">
-        <button 
-          className={`category-btn ${category === "All" ? "active" : ""}`}
-          onClick={() => setCategory("All")}
-        >
-          ALL ARTICLES
-        </button>
-        <button 
-          className={`category-btn ${category === "Technology" ? "active" : ""}`}
-          onClick={() => setCategory("Technology")}
-        >
-          CATEGORY 1
-        </button>
-        <button 
-          className={`category-btn ${category === "Advice" ? "active" : ""}`}
-          onClick={() => setCategory("Advice")}
-        >
-          CATEGORY 2
-        </button>
-        <button 
-          className={`category-btn ${category === "Stories" ? "active" : ""}`}
-          onClick={() => setCategory("Stories")}
-        >
-          CATEGORY 3
-        </button>
-      </div>
+  {/* Dropdown with custom chevron */}
+  <div className="dropdown-wrapper">
+    <select
+      className="filter-dropdown"
+      value={category}
+      onChange={(e) => setCategory(e.target.value)}
+    >
+      {categories.map((c, i) => (
+        <option key={i} value={c}>
+          {c}
+        </option>
+      ))}
+    </select>
+    <ChevronDown size={20} className="dropdown-chevron" />
+  </div>
+</div>
+{/* Removed the category filter bar for ALL ARTICLES, CATEGORY 1, CATEGORY 2, CATEGORY 3 */}
 
       {/* Blog Grid */}
       <div className="blog-grid">
         {filtered.map((blog) => (
           <div className="blog-card" key={blog.id}>
             <img src={blog.image} alt={blog.title} />
-            <div className="blog-content">
-              <h3>{blog.title}</h3>
-              <p>{blog.content}</p>
-              <div className="actions">
-                <button onClick={() => handleLike(blog.id)}>❤️ {likes[blog.id] || 0}</button>
-                {reactionsList.map((emoji) => (
-                  <button
-                    key={emoji}
-                    onClick={() => handleReaction(blog.id, emoji)}
-                    className="reaction"
-                  >
-                    {emoji} {reactions[blog.id]?.[emoji] || 0}
-                  </button>
-                ))}
-              </div>
-              <button 
-                className="read-more" 
-                onClick={() => handleReadMore(blog)}
-              >
-                Read More →
-              </button>
+              <div className="blog-content">
+                <h3>{blog.title}</h3>
+                <p>{blog.content}</p>
+                
+                
+                <div className="button-container">
+                  <div className="read-more-btn-container">
+                    <button 
+                      className="common-btn"
+                      onClick={() => handleReadMore(blog)}
+                    >
+                      READ MORE
+                    </button>
+                  </div>
+
+                </div>
             </div>
           </div>
         ))}
       </div>
-
-      {toast && <div className="toast">{toast}</div>}
     </div>
           <Footer />
     </>

@@ -4,9 +4,9 @@ import { Linkedin, Instagram } from "lucide-react";
 import { motion } from "framer-motion";
 import team1 from "./assets/team1.jpeg";
 import team2 from "./assets/team2.jpeg";
-import team3 from "./assets/team3.jpeg";
-import team4 from "./assets/team4.jpeg";
-import team5 from "./assets/team5.jpeg";
+import team3 from "./assets/team3.png";
+import team4 from "./assets/team4.png";
+import team5 from "./assets/team5.png";
 
 const teamMembers = [
   {
@@ -42,7 +42,7 @@ const teamMembers = [
     instagram: "https://instagram.com/priya",
   },
   {
-    name: "shruthi yuvnuv v",
+    name: "Shruthi yuvnuv V",
     position: "Hardware Team lead",
     description: "Ensuring seamless daily operations.",
     image: team5,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./chatbot.css";
 import floatingIcon from "./assets/chatbot-icon.png";
 import headerLogo from "./assets/mylogo.png";
@@ -11,6 +11,7 @@ const Chatbot = () => {
     { sender: "bot", text: "Hi there! How can I assist you today? 😊" },
   ]);
   const [input, setInput] = useState("");
+  const chatbotRef = useRef(null);
 
   const handleSend = () => {
     if (input.trim() === "") return;
@@ -23,6 +24,22 @@ const Chatbot = () => {
       ]);
     }, 1000);
   };
+
+  // Close chatbox when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        chatbotRef.current &&
+        !chatbotRef.current.contains(event.target)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
@@ -43,7 +60,7 @@ const Chatbot = () => {
       </div>
 
       {isOpen && (
-        <div className="chatbot-window">
+        <div className="chatbot-window" ref={chatbotRef}>
           <div className="chatbot-header">
             <div className="chatbot-header-left">
               <div className="chatbot-header-title">
@@ -68,7 +85,9 @@ const Chatbot = () => {
             {messages.map((msg, i) => (
               <div
                 key={i}
-                className={`message-row ${msg.sender === "user" ? "user" : "bot"}`}
+                className={`message-row ${
+                  msg.sender === "user" ? "user" : "bot"
+                }`}
               >
                 {msg.sender === "bot" && (
                   <>
@@ -79,7 +98,11 @@ const Chatbot = () => {
                 {msg.sender === "user" && (
                   <>
                     <div className="message user">{msg.text}</div>
-                    <img src={userIcon} alt="User" className="avatar user-avatar" />
+                    <img
+                      src={userIcon}
+                      alt="User"
+                      className="avatar user-avatar"
+                    />
                   </>
                 )}
               </div>

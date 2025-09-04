@@ -35,8 +35,7 @@ const TopPicks = () => {
   return (
     <div className="top-picks-wrapper">
       <div className="top-picks-container">
-        <h2 className="section-title">Top Picks for You</h2>
-        <div className="red-underline offset"></div>
+        <h2 className="section-title">Browse Products</h2>
 
         <div className="carousel-wrapper">
           {startIndex > 0 && (
