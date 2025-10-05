@@ -4,6 +4,7 @@ import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import { Mic, Headphones, Volume2, Check } from "lucide-react";
+import Footer from "./footer";
 
 // Leaflet Icon Fix
 delete L.Icon.Default.prototype._getIconUrl;
@@ -265,5 +266,3 @@ const HearingTest = () => {
 };
 
 export default HearingTest;
-
-

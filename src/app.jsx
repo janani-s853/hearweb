@@ -15,6 +15,7 @@ import Hero2 from "./components/hero2";
 import Timeline from "./components/timeline";
 import Footer from "./components/footer";
 import HearingInfo from "./components/HearingInfo";
+import ConsultationPage from "./components/consultation"; // NEW: Import ConsultationPage
 
 import "./App.css";
 
@@ -55,7 +56,7 @@ const AppContent = () => {
         <Route path="/timeline" element={<Timeline />} />
         <Route path="/hearinginfo" element={<HearingInfo />} />
         <Route path="/products" element={<ProductsPage />} /> {/* ✅ Add this */}
-
+        <Route path="/consultation" element={<ConsultationPage />} /> {/* NEW: Consultation Route */}
       </Routes>
 
       {!hideExtras && <Chatbot />}

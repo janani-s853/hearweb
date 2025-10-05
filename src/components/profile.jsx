@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./profile.css";
+import { useNavigate } from "react-router-dom";
 import {
   User,
   Calendar,
@@ -13,6 +14,7 @@ import {
 import Footer from "./footer";
 
 export default function ProfilePage() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Profile");
   const [isEditing, setIsEditing] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -202,7 +204,10 @@ export default function ProfilePage() {
                   <br />
                   Book your first appointment to get started.
                 </p>
-                <button className="empty-state-btn">
+                <button
+                  className="empty-state-btn"
+                  onClick={() => navigate("/consultation")}
+                >
                   <Clock size={16} /> Book Appointment
                 </button>
               </div>
@@ -229,9 +234,21 @@ export default function ProfilePage() {
             ))}
 
           {activeTab === "Tests" && (
-            <h2 className="fade-in">
-              📝 Previous Hearing Test Results (Content Coming Soon)
-            </h2>
+            <div className="empty-state fade-in">
+              <FileText size={48} className="empty-state-icon" />
+              <h3 className="empty-state-title">No Previous Tests Found</h3>
+              <p className="empty-state-text">
+                You have no saved hearing test results.
+                <br />
+                Take a test to check your hearing health.
+              </p>
+              <button
+                className="empty-state-btn"
+                onClick={() => navigate("/hearingtest")}
+              >
+                <FileText size={16} /> Take a Hearing Test
+              </button>
+            </div>
           )}
         </main>
       </div>

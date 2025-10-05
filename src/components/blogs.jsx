@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./blogs.css";
 import Footer from '../components/footer';
 import BlogCarousel from './blogscarousel';
 import { ChevronDown } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const initialBlogs = [
   {
@@ -218,7 +223,7 @@ const initialBlogs = [
     }
   },
   {
-        id: "blog6",
+    id: "blog6",
     title: "Overcoming Hearing Stigma",
     content: "Changing perceptions about hearing loss.",
     image: require("./assets/blog6.webp"),
@@ -256,11 +261,11 @@ const initialBlogs = [
       ]
     }
   },
-  
+
 ];
 
 const BlogPage = () => {
-    const [likedBlogs, setLikedBlogs] = useState({}); // <- add this
+  const [likedBlogs, setLikedBlogs] = useState({});
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [selectedBlog, setSelectedBlog] = useState(null);
@@ -274,9 +279,9 @@ const BlogPage = () => {
   };
 
   const handleLike = (blogId) => {
-    setLikedBlogs(prev => ({
+    setLikedBlogs((prev) => ({
       ...prev,
-      [blogId]: !prev[blogId]
+      [blogId]: !prev[blogId],
     }));
   };
 
@@ -290,132 +295,205 @@ const BlogPage = () => {
 
   if (selectedBlog) {
     return (
-      <div className="blog-container">
-        <div className="article-detail">
-          <button className="common-btn" onClick={handleBackToBlogs}>
-            ← Back to Blogs
-          </button>
+      <>
+        <div className="blog-page">
+          <div className="blog-container pb-0">
+            <div className="article-detail">
+              <button className="common-btn" onClick={handleBackToBlogs}>
+                ← Back to Blogs
+              </button>
 
-          <div className="article-header">
-            <img src={selectedBlog.image} alt={selectedBlog.title} className="article-hero-image" />
-            <div className="article-title-section">
-              <h1 className="article-title">{selectedBlog.fullContent?.title || selectedBlog.title}</h1>
-            </div>
-          </div>
-
-          <div className="article-layout">
-            <div className="article-content">
-              {selectedBlog.fullContent?.sections.map((section, index) => (
-                <div key={index} className="article-section">
-                  <h2 className="section-heading">{section.heading}</h2>
-                  {section.content && (
-                    <p className="section-content">{section.content}</p>
-                  )}
-                  {section.bulletPoints && (
-                    <ul className="bullet-list">
-                      {section.bulletPoints.map((point, pointIndex) => (
-                        <li key={pointIndex} className="bullet-item">{point}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <div className="article-sidebar">
-              <div className="signup-form">
-                <h3>Sign up for the latest updates</h3>
-                <form>
-                  <input type="text" placeholder="First Name*" className="form-input" />
-                  <input type="text" placeholder="Last Name*" className="form-input" />
-                  <input type="email" placeholder="Email Address*" className="form-input" />
-                  <button type="submit" className="signup-btn">Sign up</button>
-                </form>
-              </div>
-
-              <div className="related-posts">
-                <h3>RELATED POSTS</h3>
-                <div className="related-post-item">
-                  <img src="https://placehold.co/150x100/90c695/ffffff?text=Hearing+Care+Tips" alt="Related post" />
-                  <p>Tips for Better Hearing Health</p>
+              <div className="article-header">
+                <img
+                  src={selectedBlog.image}
+                  alt={selectedBlog.title}
+                  className="article-hero-image"
+                />
+                <div className="article-title-section">
+                  <h1 className="article-title">
+                    {selectedBlog.fullContent?.title || selectedBlog.title}
+                  </h1>
                 </div>
               </div>
+
+              <div className="article-layout">
+                <div className="article-content">
+                  {selectedBlog.fullContent?.sections.map((section, index) => (
+                    <div key={index} className="article-section">
+                      <h2 className="section-heading">{section.heading}</h2>
+
+                      {/* Multi-paragraph content */}
+                      {section.content &&
+                        section.content.split("\n").map((para, pIndex) => (
+                          <p key={pIndex} className="section-content">
+                            {para}
+                          </p>
+                        ))}
+
+                      {/* Bullet points */}
+                      {section.bulletPoints && (
+                        <ul className="bullet-list">
+                          {section.bulletPoints.map((point, pointIndex) => (
+                            <li key={pointIndex} className="bullet-item">
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="article-sidebar">
+                  <div className="signup-form">
+                    <h3>Sign up for the latest updates</h3>
+                    <form>
+                      <input
+                        type="text"
+                        placeholder="First Name*"
+                        className="form-input"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Last Name*"
+                        className="form-input"
+                      />
+                      <input
+                        type="email"
+                        placeholder="Email Address*"
+                        className="form-input"
+                      />
+                      <button type="submit" className="signup-btn">
+                        Sign up
+                      </button>
+                    </form>
+                  </div>
+
+                  <div className="related-posts">
+                    <h3>RELATED POSTS</h3>
+                    <div className="related-post-item">
+                      <img
+                        src="https://placehold.co/150x100/90c695/ffffff?text=Hearing+Care+Tips"
+                        alt="Related post"
+                      />
+                      <p>Tips for Better Hearing Health</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <Footer isArticlePage={true} />
+          <Footer />
         </div>
-      </div>
+      </>
     );
   }
 
   return (
-        <>
+    <>
+      <div className="blog-page">
+        <div className="blog-container pb-0">
+          {/* Main Heading */}
+          <h1 className="main-heading">Trending Blogs</h1>
 
-    <div className="blog-container">
-      {/* Main Heading */}
-      <h1 className="main-heading">Trending Blogs</h1>
+          {/* Featured Articles Carousel */}
+          <BlogCarousel />
 
-      {/* Featured Articles Carousel */}
-      <BlogCarousel />
+          {/* Search and Filter Controls */}
+          <div className="top-controls">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search blogs..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
 
-{/* Search and Filter Controls */}
-<div className="top-controls">
-  {/* Search Input */}
-  <input
-    type="text"
-    className="search-input"
-    placeholder="Search blogs..."
-    value={search}
-    onChange={(e) => setSearch(e.target.value)}
-  />
-
-  {/* Dropdown with custom chevron */}
-  <div className="dropdown-wrapper">
-    <select
-      className="filter-dropdown"
-      value={category}
-      onChange={(e) => setCategory(e.target.value)}
-    >
-      {categories.map((c, i) => (
-        <option key={i} value={c}>
-          {c}
-        </option>
-      ))}
-    </select>
-    <ChevronDown size={20} className="dropdown-chevron" />
-  </div>
-</div>
-{/* Removed the category filter bar for ALL ARTICLES, CATEGORY 1, CATEGORY 2, CATEGORY 3 */}
-
-      {/* Blog Grid */}
-      <div className="blog-grid">
-        {filtered.map((blog) => (
-          <div className="blog-card" key={blog.id}>
-            <img src={blog.image} alt={blog.title} />
-              <div className="blog-content">
-                <h3>{blog.title}</h3>
-                <p>{blog.content}</p>
-                
-                
-                <div className="button-container">
-                  <div className="read-more-btn-container">
-                    <button 
-                      className="common-btn"
-                      onClick={() => handleReadMore(blog)}
-                    >
-                      READ MORE
-                    </button>
-                  </div>
-
-                </div>
+            <div className="dropdown-wrapper">
+              <select
+                className="filter-dropdown"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                {categories.map((c, i) => (
+                  <option key={i} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown size={20} className="dropdown-chevron" />
             </div>
           </div>
-        ))}
+
+          {/* Blog Carousel */}
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay]}
+            spaceBetween={20}
+            slidesPerView={4}
+            navigation
+            pagination={{ clickable: true }}
+            autoplay={{ delay: 3000 }}
+            loop={true}
+            breakpoints={{
+              0: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 4 },
+            }}
+          >
+            {filtered.map((blog) => (
+              <SwiperSlide key={blog.id}>
+                <div className="blog-card">
+                  <img src={blog.image} alt={blog.title} />
+                  <div className="blog-content">
+                    <h3>{blog.title}</h3>
+                    <p>{blog.content}</p>
+
+                    <div className="button-container">
+                      <div className="read-more-btn-container">
+                        <button
+                          className="common-btn"
+                          onClick={() => handleReadMore(blog)}
+                        >
+                          READ MORE
+                        </button>
+                      </div>
+                      <div className="like-button-container">
+                        <button
+                          className={`like-button ${likedBlogs[blog.id] ? "liked" : ""
+                            }`}
+                          onClick={() => handleLike(blog.id)}
+                        >
+                          <svg
+                            className="heart-outline"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M12 21s-6.2-4.6-9.2-8.6C.6 10.6 0 8.4 0 6.2 0 2.8 2.8 0 6.2 0c1.8 0 3.4.8 4.5 2.1C11.4.8 13 .1 14.8.1 18.2 0 21 2.8 21 6.2c0 2.2-.6 4.4-2.8 6.2C18.2 16.4 12 21 12 21z" />
+                          </svg>
+                          <svg
+                            className="heart-filled"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M12 21s-6.2-4.6-9.2-8.6C.6 10.6 0 8.4 0 6.2 0 2.8 2.8 0 6.2 0c1.8 0 3.4.8 4.5 2.1C11.4.8 13 .1 14.8.1 18.2 0 21 2.8 21 6.2c0 2.2-.6 4.4-2.8 6.2C18.2 16.4 12 21 12 21z" />
+                          </svg>
+                        </button>
+                        <span className="like-count">
+                          {likedBlogs[blog.id] ? 1 : 0}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        <Footer />
       </div>
-    </div>
-          <Footer />
     </>
   );
 };
 
 export default BlogPage;
+

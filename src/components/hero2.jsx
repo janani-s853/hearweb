@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronRight, ChevronLeft, Star } from 'lucide-react';
-import nobg from './assets/products/nobg.png'; // Make sure this path is correct
+import nobg from './assets/products/nobg.png';
 import './hero2.css';
 
 const products = [
@@ -16,7 +16,24 @@ const products = [
 
 const TopPicks = () => {
   const [startIndex, setStartIndex] = useState(0);
-  const cardsPerView = 4;
+  const [cardsPerView, setCardsPerView] = useState(4);
+  const [isSwipeView, setIsSwipeView] = useState(window.innerWidth < 1155);
+
+  useEffect(() => {
+    const updateView = () => {
+      const screenWidth = window.innerWidth;
+      // Updated breakpoint to 1155px
+      setIsSwipeView(screenWidth < 1155);
+
+      if (screenWidth >= 1155) {
+        setCardsPerView(4);
+      }
+    };
+
+    updateView();
+    window.addEventListener("resize", updateView);
+    return () => window.removeEventListener("resize", updateView);
+  }, []);
 
   const handleNext = () => {
     if (startIndex + cardsPerView < products.length) {
@@ -30,7 +47,9 @@ const TopPicks = () => {
     }
   };
 
-  const visibleProducts = products.slice(startIndex, startIndex + cardsPerView);
+  const productsToDisplay = isSwipeView
+    ? products
+    : products.slice(startIndex, startIndex + cardsPerView);
 
   return (
     <div className="top-picks-wrapper">
@@ -38,14 +57,14 @@ const TopPicks = () => {
         <h2 className="section-title">Browse Products</h2>
 
         <div className="carousel-wrapper">
-          {startIndex > 0 && (
+          {!isSwipeView && startIndex > 0 && (
             <button className="arrow left" onClick={handlePrev}>
               <ChevronLeft size={22} />
             </button>
           )}
 
-          <div className="product-slider">
-            {visibleProducts.map((product) => (
+          <div className={`product-slider ${isSwipeView ? "swipe-view" : ""}`}>
+            {productsToDisplay.map((product) => (
               <div key={product.id} className="product-card">
                 <img src={nobg} alt={product.name} className="product-img" />
                 <h3 className="product-name">{product.name}</h3>
@@ -77,7 +96,7 @@ const TopPicks = () => {
             ))}
           </div>
 
-          {startIndex + cardsPerView < products.length && (
+          {!isSwipeView && startIndex + cardsPerView < products.length && (
             <button className="arrow right" onClick={handleNext}>
               <ChevronRight size={22} />
             </button>

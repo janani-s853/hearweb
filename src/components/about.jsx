@@ -2,7 +2,7 @@ import React from "react";
 import Timeline from "./timeline";
 import TeamSection from "./teams";
 import "./about.css";
-import ceoImage from "./assets/ceo-image.jpg"; 
+import ceoImage from "./assets/ceo-image.jpg";
 import Footer from "../components/footer";
 
 const AboutUs = () => {
@@ -10,10 +10,10 @@ const AboutUs = () => {
     <div className="about-us-page hero-page">
       <section className="about-hero-video-section">
         <div className="hero-video-content">
-          <img 
-            src={ceoImage} 
-            alt="CEO Vision" 
-            className="hero-background-image" 
+          <img
+            src={ceoImage}
+            alt="CEO Vision"
+            className="hero-background-image"
           />
           <div className="hero-overlay" />
           <div className="hero-left-gradient">
@@ -38,3 +38,5 @@ const AboutUs = () => {
 };
 
 export default AboutUs;
+
+

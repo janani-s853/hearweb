@@ -3,6 +3,11 @@
   background-color: #ffffff;
 }
 
+/* Override footer margin specifically on the support page */
+.support-page .footer {
+  margin-top: 0;
+}
+
 .hero-bg {
   background-image: url('./assets/products/bg9.png');
   background-size: cover;
@@ -202,7 +207,7 @@
 }
 
 .faq-section {
-  padding: 4rem 0;
+  padding: 0;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -292,4 +297,7 @@
     padding: 2rem;
   }
 }
+
+
+
 

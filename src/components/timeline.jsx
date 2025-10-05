@@ -21,8 +21,8 @@ function buildWaveSegments(len, width, y) {
     const prevX = (i - 1) * stepX;
     const x = i * stepX;
     const cpX = prevX + stepX / 2;
-const curveHeight = 100; // tweak this number
-const cpY = i % 2 === 0 ? y - curveHeight : y + curveHeight;
+    const curveHeight = 100; // tweak this number
+    const cpY = i % 2 === 0 ? y - curveHeight : y + curveHeight;
     segments.push(`M ${prevX} ${y} Q ${cpX} ${cpY}, ${x} ${y}`);
   }
   return segments;
@@ -112,3 +112,5 @@ export default function TimelineWithDottedLines() {
     </section>
   );
 }
+
+

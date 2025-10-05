@@ -1,4 +1,3 @@
-
 /*
   This entire CSS file is "scoped" with .hearing-test-page-container.
   It is guaranteed not to affect any other page on your website.
@@ -17,6 +16,10 @@
   font-family: "Poppins", "Segoe UI", sans-serif;
   color: var(--ht-text-dark);
   background: #f0f2f5;
+}
+
+.hearing-test-page-container .footer {
+  margin-top: 0;
 }
 
 .hearing-test-page-container .hearing-fullscreen {
@@ -449,7 +452,8 @@
 /* FIX: This ensures the map section is always centered */
 .hearing-test-page-container .map-container {
   width: 100%;
-  padding: 6rem 2rem;
+  padding: 6rem 2rem 0;
+  /* Remove bottom padding */
   background: #ffffff;
   display: flex;
   flex-direction: column;
@@ -563,4 +567,10 @@
     font-size: 0.7rem;
   }
 }
+
+
+
+
+
+
 

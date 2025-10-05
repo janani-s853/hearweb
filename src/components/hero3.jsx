@@ -1,57 +1,45 @@
-import React, { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import prod from "./assets/products/procard1.png";
+import React from "react";
 import "./hero3.css";
+import { ChevronRight } from "lucide-react";
+import phoneImage from "./assets/phone.png"; // Replace with your phone image
 
-const products = [
-  { id: 1, name: "Premium Hearing Aid", img: prod },
-  { id: 2, name: "Smart Hearing Aid", img: prod },
-  { id: 3, name: "Compact Hearing Aid", img: prod },
+const features = [
+  "Connect your hearing aid easily",
+  "Customize sound with AI auto-tune",
+  "Monitor hearing progress anytime",
+  "Quick adjustments & notifications",
 ];
 
-const ProductsCarousel = () => {
-  const [index, setIndex] = useState(0);
-
-  const handlePrev = () => {
-    setIndex((prev) => (prev === 0 ? products.length - 1 : prev - 1));
-  };
-
-  const handleNext = () => {
-    setIndex((prev) => (prev === products.length - 1 ? 0 : prev + 1));
-  };
-
+const Hero3 = () => {
   return (
-    <div className="carousel-section">
-      <h2 className="carousel-title">Our Top Picks for You</h2>
-      <div className="red-underline"></div>
-
-      <div className="carousel-wrapper">
-        <button className="arrow left" onClick={handlePrev}>
-          <ChevronLeft size={26} />
-        </button>
-
-        <div className="carousel-track">
-          {products.map((product, i) => {
-            let position = "next";
-            if (i === index) position = "active";
-            else if (i === (index - 1 + products.length) % products.length)
-              position = "prev";
-
-            return (
-              <div key={product.id} className={`carousel-item ${position}`}>
-                <img src={product.img} alt={product.name} />
-                <p className="carousel-name">{product.name}</p>
-              </div>
-            );
-          })}
+    <section className="hero3-container">
+      <div className="hero3-content">
+        {/* Left: Phone Image */}
+        <div className="hero3-left">
+          <img src={phoneImage} alt="H.E.A.R App on phone" />
         </div>
 
-        <button className="arrow right" onClick={handleNext}>
-          <ChevronRight size={26} />
-        </button>
+        {/* Right: App Info */}
+        <div className="hero3-right">
+          <h2>Download the H.E.A.R App</h2>
+          <p>Customize and control your hearing aids directly from your phone.</p>
+          
+          <ul className="hero3-features">
+            {features.map((feat, idx) => (
+              <li key={idx}>
+                <ChevronRight className="chevron-icon" /> {feat}
+              </li>
+            ))}
+          </ul>
+
+          <div className="hero3-buttons">
+            <a href="#" className="download-btn android">Download for Android</a>
+            <a href="#" className="download-btn ios">Download for iOS</a>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default ProductsCarousel;
+export default Hero3;
